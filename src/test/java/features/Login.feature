@@ -1,5 +1,11 @@
 Feature: Login Feature
+
+  Scenario: Home Page - Title Check
+    Given I navigate to "https://nhaindustries.azurewebsites.net/"
+    Then I should see the title "Anime Social - Feed"
+
   Scenario: Successful Login
-    Given I open the browser
-    And I navigate to "https://google.com"
-    Then I should see the title "Google"
+    Given I navigate to "https://nhaindustries.azurewebsites.net/"
+    And I navigate to login page
+    And I login with valid credentials
+    Then profile picture is visible "true"
