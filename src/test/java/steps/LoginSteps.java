@@ -16,11 +16,6 @@ public class LoginSteps {
         this.context = context;
     }
 
-    @Given("I navigate to {string}")
-    public void i_navigate_to(String url) {
-        context.driver.get(url);
-    }
-
     @Given("I navigate to login page")
     public void i_navigate_to_login_page() {
         navigationBar = new NavigationBar(context.driver);

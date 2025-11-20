@@ -9,6 +9,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 public class Hooks {
 
     private final TestContext context;
+    private final String baseUrl = "https://nhaindustries.azurewebsites.net/";
 
     public Hooks(TestContext context) {
         this.context = context;
@@ -18,6 +19,7 @@ public class Hooks {
     public void setUp(io.cucumber.java.Scenario scenario) {
         WebDriverManager.edgedriver().setup();
         context.driver = new EdgeDriver();
+        context.driver.navigate().to(baseUrl);
         System.out.println("Starting scenario: " + scenario.getName());
     }
 

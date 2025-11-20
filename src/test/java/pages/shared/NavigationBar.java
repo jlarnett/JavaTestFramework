@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.LoginPage;
 
+import java.time.Duration;
 import java.util.List;
 
 public class NavigationBar {
@@ -24,6 +25,12 @@ public class NavigationBar {
 
     @FindBy(linkText = "Logout")
     private WebElement loginOutButton;
+
+    @FindBy(id = "searchInput")
+    private WebElement searchInput;
+
+    @FindBy(id = "searchDropdown")
+    private WebElement searchDropdown;
 
     public NavigationBar(WebDriver driver) {
         this.driver = driver;
@@ -43,6 +50,20 @@ public class NavigationBar {
 
     public void clickLoginOut() {
         loginOutButton.click();
+    }
+
+    public void setSearchInput(String text) {
+        searchInput.sendKeys(text);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+    }
+
+    public void selectFirstSearchResult() {
+        var results = searchDropdown.findElements(By.cssSelector("li"));
+
+        if(!results.isEmpty()) {
+            results.getFirst().click();
+        }
+
     }
 
     /**
