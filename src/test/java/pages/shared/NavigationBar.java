@@ -1,14 +1,17 @@
 package pages.shared;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import pages.LoginPage;
 
+import java.util.List;
+
 public class NavigationBar {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     @FindBy(linkText = "Login")
     private WebElement loginButton;
@@ -46,11 +49,14 @@ public class NavigationBar {
      * Validates that the profile picture element is visible in navbar
      */
     public void checkForProfilePicture(boolean shouldBeVisible) {
-        final boolean isProfilePictureDisplayed = profilePicture.isDisplayed();
-
-        if(shouldBeVisible)
+        if(shouldBeVisible) {
+            final boolean isProfilePictureDisplayed = profilePicture.isDisplayed();
             Assert.assertTrue(isProfilePictureDisplayed);
-        else
-            Assert.assertFalse(isProfilePictureDisplayed);
+        }
+        else {
+            // Element should not exist at all
+            List<WebElement> profilePictureElements = driver.findElements(By.id("ProfilePicture"));
+            Assert.assertEquals(0, profilePictureElements.size());
+        }
     }
 }

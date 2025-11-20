@@ -9,3 +9,11 @@ Feature: Login Feature
     And I navigate to login page
     And I login with valid credentials
     Then profile picture is visible "true"
+
+  Scenario: Successful Login and Logout
+    Given I navigate to "https://nhaindustries.azurewebsites.net/"
+    And I navigate to login page
+    And I login with valid credentials
+    Then profile picture is visible "true"
+    And I logout
+    Then profile picture is visible "false"
