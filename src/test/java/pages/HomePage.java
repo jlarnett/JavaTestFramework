@@ -1,10 +1,15 @@
 package pages;
-
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.List;
 
 public class HomePage {
 
@@ -14,7 +19,7 @@ public class HomePage {
     private WebElement contentFeed;
 
     @FindBy(className = "post-container")
-    private WebElement posts;
+    private List<WebElement> posts;
 
     @FindBy(css = ".note-editable")
     private WebElement mainPostInput;
@@ -40,13 +45,29 @@ public class HomePage {
         basicPostSubmitBtn.click();
     }
 
+    public void checkFirstPostContainsString(String firstPostText) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        // Wait until the <p> inside the first post contains the expected text
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+                By.cssSelector(".post-container:first-of-type p"),
+                firstPostText
+        ));
+
+        var text = posts.getFirst().findElement(By.cssSelector("p")).getText();
+        Assertions.assertTrue(text.contains(firstPostText));
+    }
+
     public void checkValidationMessageIsDisplayed(Boolean shouldBeVisible) {
 
         if(shouldBeVisible) {
-            Assert.assertTrue(validationMessage.isDisplayed());
+            //Try to wait until validation message is visible
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(ExpectedConditions.visibilityOf(validationMessage));
+            Assertions.assertTrue(validationMessage.isDisplayed());
         }
         else {
-            Assert.assertFalse(validationMessage.isDisplayed());
+            Assertions.assertFalse(validationMessage.isDisplayed());
         }
     }
 

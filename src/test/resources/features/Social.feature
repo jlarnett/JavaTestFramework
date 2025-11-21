@@ -4,7 +4,7 @@ Feature: Social Feed
     Given I navigate to login page
     And I login with valid credentials
     And I try to submit basic post
-    Then Validation message is shown "true"
+    Then I should see validation message is shown "true"
 
   Scenario: Submit post with valid summary
     Given I navigate to login page
@@ -12,5 +12,6 @@ Feature: Social Feed
     And I generate a random post
     And I add post summary message for "random"
     And I try to submit basic post
-    Then Validation message is shown "false"
+    Then I should see validation message is shown "false"
+    Then I should see recently created post
 

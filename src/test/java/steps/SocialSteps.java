@@ -1,5 +1,4 @@
 package steps;
-
 import context.TestContext;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -40,10 +39,19 @@ public class SocialSteps {
         HomePage.clickBasicPostSubmitBtn();
     }
 
-    @Then("Validation message is shown {string}")
+    @Then("I should see validation message is shown {string}")
     public void validation_message_is_shown(String shouldBeVisible) {
 
         var homePage = new HomePage(context.driver);
         homePage.checkValidationMessageIsDisplayed(Boolean.parseBoolean(shouldBeVisible));
     }
+
+    @Then("I should see recently created post")
+    public void i_should_see_recently_created_post() {
+
+        var homePage = new HomePage(context.driver);
+        homePage.checkFirstPostContainsString(randomPostText);
+    }
+
+
 }

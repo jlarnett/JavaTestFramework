@@ -1,5 +1,5 @@
 package pages.shared;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -72,12 +72,12 @@ public class NavigationBar {
     public void checkForProfilePicture(boolean shouldBeVisible) {
         if(shouldBeVisible) {
             final boolean isProfilePictureDisplayed = profilePicture.isDisplayed();
-            Assert.assertTrue(isProfilePictureDisplayed);
+            Assertions.assertTrue(isProfilePictureDisplayed);
         }
         else {
             // Element should not exist at all
             List<WebElement> profilePictureElements = driver.findElements(By.id("ProfilePicture"));
-            Assert.assertEquals(0, profilePictureElements.size());
+            Assertions.assertEquals(0, profilePictureElements.size());
         }
     }
 }

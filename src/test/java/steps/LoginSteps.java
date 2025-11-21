@@ -1,8 +1,7 @@
 package steps;
-
 import io.cucumber.java.en.*;
-import static org.junit.Assert.*;
 import context.TestContext;
+import org.junit.jupiter.api.Assertions;
 import pages.LoginPage;
 import pages.shared.NavigationBar;
 
@@ -34,7 +33,7 @@ public class LoginSteps {
 
     @Then("I should see the title {string}")
     public void i_should_see_the_title(String expectedTitle) {
-        assertEquals(expectedTitle, context.driver.getTitle());
+        Assertions.assertEquals(expectedTitle, context.driver.getTitle());
     }
 
     @Then("profile picture is visible {string}")

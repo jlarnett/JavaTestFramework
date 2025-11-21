@@ -1,4 +1,4 @@
-Feature: Login Feature
+Feature: Search Feature
 
   Scenario: Valid Site Anime Search
     Given I search for "FullMetal Alchemist"
