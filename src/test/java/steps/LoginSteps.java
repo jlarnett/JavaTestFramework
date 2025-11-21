@@ -2,9 +2,15 @@ package steps;
 import io.cucumber.java.en.*;
 import context.TestContext;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.LoginPage;
 import pages.shared.NavigationBar;
 
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Execution(ExecutionMode.CONCURRENT)
 public class LoginSteps {
 
     private final TestContext context;
@@ -17,7 +23,7 @@ public class LoginSteps {
 
     @Given("I navigate to login page")
     public void i_navigate_to_login_page() {
-        navigationBar = new NavigationBar(context.driver);
+        navigationBar = new NavigationBar(context.getDriver());
         loginPage = navigationBar.clickLogin();
     }
 
@@ -33,7 +39,7 @@ public class LoginSteps {
 
     @Then("I should see the title {string}")
     public void i_should_see_the_title(String expectedTitle) {
-        Assertions.assertEquals(expectedTitle, context.driver.getTitle());
+        Assertions.assertEquals(expectedTitle, context.getDriver().getTitle());
     }
 
     @Then("profile picture is visible {string}")
