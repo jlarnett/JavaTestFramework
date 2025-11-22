@@ -11,7 +11,7 @@ public class DriverFactory {
         options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
         options.addArguments("--window-size=1920,1080");
-
+        options.setCapability("se:cdpVersion", "v100");
         return new EdgeDriver(options);
     });
 
