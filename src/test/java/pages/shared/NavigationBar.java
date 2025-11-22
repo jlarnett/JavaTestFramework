@@ -32,6 +32,24 @@ public class NavigationBar {
     @FindBy(id = "searchDropdown")
     private WebElement searchDropdown;
 
+    @FindBy(id = "themeDropdown")
+    private WebElement themeDropdown;
+    
+    @FindBy(linkText = "Anime Roll")
+    private WebElement animeRollLinkButton;
+
+    @FindBy(linkText = "Anime Wiki")
+    private WebElement animeWikiLinkButton;
+
+    @FindBy(linkText = "Game Wiki")
+    private WebElement gameWikiLinkButton;
+
+    @FindBy(linkText = "Forums")
+    private WebElement forumsLinkButton;
+
+    @FindBy(linkText = "Crypto")
+    private WebElement cryptoLinkButton;
+
     public NavigationBar(WebDriver driver) {
         this.driver = driver;
 
@@ -41,6 +59,26 @@ public class NavigationBar {
 
     public void clickRegister() {
         registerButton.click();
+    }
+
+    public void clickAnimeRoll() {
+        animeRollLinkButton.click();
+    }
+    
+    public void clickAnimeWiki() {
+        animeWikiLinkButton.click();
+    }
+
+    public void clickGameWiki() {
+        gameWikiLinkButton.click();
+    }
+
+    public void clickForums() {
+        forumsLinkButton.click();
+    }
+
+    public void clickCrypto() {
+        cryptoLinkButton.click();
     }
 
     public LoginPage clickLogin() {

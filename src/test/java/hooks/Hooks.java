@@ -10,10 +10,11 @@ import org.openqa.selenium.WebDriver;
 public class Hooks {
 
     private final TestContext context;
-    private final String baseUrl = "https://nhaindustries.azurewebsites.net/";
+    private String baseUrl = "https://nhaindustries.azurewebsites.net/";
 
     public Hooks(TestContext context) {
         this.context = context;
+        this.baseUrl = context.dotenv.get("BASE_URL");
     }
 
     @Before
