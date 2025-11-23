@@ -1,6 +1,7 @@
 package driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
@@ -27,6 +28,12 @@ public class DriverFactory {
         options.addArguments("--disable-gpu");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--no-sandbox");
+
+        var edgeDriver = new EdgeDriver(options);
+
+        //Try to force maximize
+        edgeDriver.manage().window().maximize();
+        edgeDriver.manage().window().setSize(new Dimension(1920, 1080));
         return new EdgeDriver(options);
     });
 
