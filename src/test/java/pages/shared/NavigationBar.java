@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;
 
 import java.time.Duration;
@@ -136,6 +138,8 @@ public class NavigationBar {
      */
     public void checkForProfilePicture(boolean shouldBeVisible) {
         if(shouldBeVisible) {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.visibilityOf(profilePicture));
             final boolean isProfilePictureDisplayed = profilePicture.isDisplayed();
             Assertions.assertTrue(isProfilePictureDisplayed);
         }
