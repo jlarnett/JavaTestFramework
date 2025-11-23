@@ -7,6 +7,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.HomePage;
+import pages.PersonalizedPostModal;
 
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 //@Execution(ExecutionMode.CONCURRENT)
@@ -44,6 +45,12 @@ public class SocialSteps {
         HomePage.clickBasicPostSubmitBtn();
     }
 
+    @Given("I click on upload with photos button")
+    public void i_click_on_upload_with_photos_button() {
+        var HomePage = new HomePage(context.getDriver());
+        HomePage.clickUploadWithPhotosBtn();
+    }
+
     @Then("I should see validation message is shown {string}")
     public void validation_message_is_shown(String shouldBeVisible) {
 
@@ -56,6 +63,12 @@ public class SocialSteps {
 
         var homePage = new HomePage(context.getDriver());
         homePage.checkFirstPostContainsString(randomPostText);
+    }
+
+    @Then("I should see personalized post modal is shown {string}")
+    public void i_should_see_personalized_post_modal_is_shown(String shouldBeVisible) {
+        var personalizedPostModal = new PersonalizedPostModal(context.getDriver());
+        personalizedPostModal.CheckCustomPostFormIsDisplayed(Boolean.parseBoolean(shouldBeVisible));
     }
 
 

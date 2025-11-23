@@ -27,6 +27,9 @@ public class HomePage {
     @FindBy(id = "SubmitBtn")
     private WebElement basicPostSubmitBtn;
 
+    @FindBy(id = "AddPhotos")
+    private WebElement uploadWithPhotosBtn;
+    
     @FindBy(id = "MainPostTextboxValidationMessage")
     private WebElement validationMessage;
 
@@ -43,6 +46,10 @@ public class HomePage {
 
     public void clickBasicPostSubmitBtn() {
         basicPostSubmitBtn.click();
+    }
+
+    public void clickUploadWithPhotosBtn() {
+        uploadWithPhotosBtn.click();
     }
 
     public void checkFirstPostContainsString(String firstPostText) {

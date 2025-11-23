@@ -50,6 +50,13 @@ public class NavigationBar {
     @FindBy(linkText = "Crypto")
     private WebElement cryptoLinkButton;
 
+
+    @FindBy(linkText = "Light Mode")
+    private WebElement lightModeDropdownOption;
+
+    @FindBy(linkText = "Dark Mode")
+    private WebElement darkModeDropdownOption;
+    
     public NavigationBar(WebDriver driver) {
         this.driver = driver;
 
@@ -104,6 +111,26 @@ public class NavigationBar {
 
     }
 
+    public enum siteThemes {
+        lightMode,
+        darkMode
+    }
+
+    /**
+     * Uses navigation bar to apply light or dark mode theme
+     * @param theme - Themes Enum object -> lightMode, darkMode
+     */
+    public void applyTheme(siteThemes theme) {
+        themeDropdown.click();
+
+        if(theme.equals(siteThemes.lightMode)) {
+            lightModeDropdownOption.click();
+        }
+        else if (theme.equals(siteThemes.darkMode)) {
+            darkModeDropdownOption.click();
+        }
+    }
+
     /**
      * Validates that the profile picture element is visible in navbar
      */
@@ -117,5 +144,10 @@ public class NavigationBar {
             List<WebElement> profilePictureElements = driver.findElements(By.id("ProfilePicture"));
             Assertions.assertEquals(0, profilePictureElements.size());
         }
+    }
+
+    public void checkThemeDropdownText(String expectedThemeDropdownText) {
+        var text = themeDropdown.getText();
+        Assertions.assertEquals(expectedThemeDropdownText, text);
     }
 }
