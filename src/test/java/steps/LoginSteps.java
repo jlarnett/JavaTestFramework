@@ -9,8 +9,8 @@ import pages.LoginPage;
 import pages.shared.NavigationBar;
 
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Execution(ExecutionMode.CONCURRENT)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@Execution(ExecutionMode.CONCURRENT)
 public class LoginSteps {
 
     private final TestContext context;

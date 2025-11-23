@@ -7,8 +7,8 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.shared.NavigationBar;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Execution(ExecutionMode.CONCURRENT)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@Execution(ExecutionMode.CONCURRENT)
 public class SearchSteps {
 
     private final TestContext context;

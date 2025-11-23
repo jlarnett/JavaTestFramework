@@ -8,8 +8,8 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.shared.NavigationBar;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@Execution(ExecutionMode.CONCURRENT)
+//@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+//@Execution(ExecutionMode.CONCURRENT)
 public class NavigationSteps {
 
     private final TestContext context;

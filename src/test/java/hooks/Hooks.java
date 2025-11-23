@@ -3,9 +3,7 @@ package hooks;
 import context.TestContext;
 import driver.DriverFactory;
 import io.cucumber.java.Before;
-import io.cucumber.java.BeforeAll;
 import io.cucumber.java.After;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 
 public class Hooks {
@@ -18,14 +16,6 @@ public class Hooks {
         this.baseUrl = context.dotenv.get("BASE_URL");
     }
 
-    @BeforeAll
-    public static void globalSetup() {
-        // Pre-download the driver BEFORE parallel threads start
-        WebDriverManager.edgedriver()
-                .avoidBrowserDetection()
-                .setup();
-    }
-    
     @Before
     public void setUp(io.cucumber.java.Scenario scenario) {
         WebDriver driver = DriverFactory.getDriver();
@@ -35,7 +25,9 @@ public class Hooks {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown()
+    {
         DriverFactory.cleanupDriver();
     }
+
 }
