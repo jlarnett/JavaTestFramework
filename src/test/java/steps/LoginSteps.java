@@ -34,6 +34,8 @@ public class LoginSteps {
 
     @Given("I logout")
     public void i_logout() {
+
+        navigationBar.clickProfileDropdown();
         navigationBar.clickLoginOut();
     }
 

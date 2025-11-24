@@ -25,6 +25,9 @@ public class NavigationBar {
     @FindBy(id = "ProfilePicture")
     private WebElement profilePicture;
 
+    @FindBy(id = "profileDropdown")
+    private WebElement profileDropdown;
+
     @FindBy(linkText = "Logout")
     private WebElement loginOutButton;
 
@@ -88,6 +91,10 @@ public class NavigationBar {
 
     public void clickCrypto() {
         cryptoLinkButton.click();
+    }
+
+    public void clickProfileDropdown() {
+        profileDropdown.click();
     }
 
     public LoginPage clickLogin() {

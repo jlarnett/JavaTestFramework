@@ -29,7 +29,7 @@ public class Hooks {
     @After
     public void tearDown(io.cucumber.java.Scenario scenario)
     {
-        WebDriver driver = context.getDriver();
+        WebDriver driver = DriverFactory.getDriver();
 
         // Capture screenshot if scenario failed
         if (scenario.isFailed() && driver != null) {

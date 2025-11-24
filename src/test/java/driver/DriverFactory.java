@@ -32,9 +32,10 @@ public class DriverFactory {
         var edgeDriver = new EdgeDriver(options);
 
         //Try to force maximize
-        edgeDriver.manage().window().maximize();
         edgeDriver.manage().window().setSize(new Dimension(1920, 1080));
-        return new EdgeDriver(options);
+        edgeDriver.manage().window().maximize();
+
+        return edgeDriver;
     });
 
     public static WebDriver getDriver() {
