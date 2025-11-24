@@ -39,11 +39,14 @@ public class NavigationBar {
 
     @FindBy(id = "themeDropdown")
     private WebElement themeDropdown;
+
+    @FindBy(id= "animeDropdown")
+    private WebElement animeDropdown;
     
-    @FindBy(linkText = "Anime Roll")
+    @FindBy(linkText = "HypeRoll")
     private WebElement animeRollLinkButton;
 
-    @FindBy(linkText = "Anime Wiki")
+    @FindBy(linkText = "Wiki")
     private WebElement animeWikiLinkButton;
 
     @FindBy(linkText = "Game Wiki")
@@ -73,6 +76,8 @@ public class NavigationBar {
         registerButton.click();
     }
 
+    public void clickAnimeDropdown() {animeDropdown.click(); }
+
     public void clickAnimeRoll() {
         animeRollLinkButton.click();
     }
@@ -92,6 +97,7 @@ public class NavigationBar {
     public void clickCrypto() {
         cryptoLinkButton.click();
     }
+
 
     public void clickProfileDropdown() {
         profileDropdown.click();
