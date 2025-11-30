@@ -55,6 +55,6 @@ Feature: Social Feed
     And I login with valid credentials
     And I add post summary message for "@fullmetal"
     And I try to select first tag in dropdown
-    And I try to submit basic post
+    And I try to submit basic post and store network response
     Then I should see validation message is shown "false"
     Then I should see recently created post by id

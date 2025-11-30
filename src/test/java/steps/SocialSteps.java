@@ -45,10 +45,16 @@ public class SocialSteps {
     @Given("I try to submit basic post")
     public void i_try_to_submit_basic_post() throws Exception {
         var HomePage = new HomePage(context.getDriver());
+        HomePage.clickBasicPostSubmitBtn();
+    }
+
+    @Given("I try to submit basic post and store network response")
+    public void i_try_to_submit_basic_post_and_store_network_response() throws Exception {
+        var HomePage = new HomePage(context.getDriver());
         var response = HomePage.clickBasicPostSubmitBtnAndGetResponseBody("/api/Posts/BasicPost", 10);
         postIds.push(response.post.id);
     }
-
+    
     @Given("I click on upload with photos button")
     public void i_click_on_upload_with_photos_button() {
         var HomePage = new HomePage(context.getDriver());
