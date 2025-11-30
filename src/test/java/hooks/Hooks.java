@@ -8,6 +8,9 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Hooks {
 
     private final TestContext context;
@@ -16,6 +19,11 @@ public class Hooks {
     public Hooks(TestContext context) {
         this.context = context;
         this.baseUrl = context.dotenv.get("BASE_URL");
+
+        Logger seleniumLogger = Logger.getLogger("org.openqa.selenium.devtools");
+        seleniumLogger.setLevel(Level.SEVERE); // only errors
+        Logger seleniumRootLogger = Logger.getLogger("org.openqa.selenium");
+        seleniumRootLogger.setLevel(Level.SEVERE);
     }
 
     @Before

@@ -9,7 +9,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import java.util.concurrent.Semaphore;
 
 public class DriverFactory {
-    private static final Semaphore semaphore = new Semaphore(3); // 2 browsers max
+    private static final Semaphore semaphore = new Semaphore(5); // 5 browsers max
     static {
         System.out.println("Running global WebDriverManager setup...");
         WebDriverManager.edgedriver()
