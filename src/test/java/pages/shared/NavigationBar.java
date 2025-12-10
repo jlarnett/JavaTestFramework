@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -49,7 +50,10 @@ public class NavigationBar {
     @FindBy(linkText = "Wiki")
     private WebElement animeWikiLinkButton;
 
-    @FindBy(linkText = "Game Wiki")
+    @FindBy(id = "gamesDropdown")
+    private WebElement gameDropdown;
+
+    @FindBy(linkText = "Wiki")
     private WebElement gameWikiLinkButton;
 
     @FindBy(linkText = "Forums")
@@ -76,7 +80,15 @@ public class NavigationBar {
         registerButton.click();
     }
 
-    public void clickAnimeDropdown() {animeDropdown.click(); }
+    public void hoverAnimeDropdown() {
+        var action  = new Actions(driver);
+        action.moveToElement(animeDropdown).perform();
+    }
+
+    public void hoverGameDropdown() {
+        var action  = new Actions(driver);
+        action.moveToElement(gameDropdown).perform();
+    }
 
     public void clickAnimeRoll() {
         animeRollLinkButton.click();
@@ -99,8 +111,9 @@ public class NavigationBar {
     }
 
 
-    public void clickProfileDropdown() {
-        profileDropdown.click();
+    public void hoverProfileDropdown() {
+        var action  = new Actions(driver);
+        action.moveToElement(profileDropdown).perform();
     }
 
     public LoginPage clickLogin() {
@@ -136,7 +149,8 @@ public class NavigationBar {
      * @param theme - Themes Enum object -> lightMode, darkMode
      */
     public void applyTheme(siteThemes theme) {
-        themeDropdown.click();
+        var action  = new Actions(driver);
+        action.moveToElement(themeDropdown).perform();
 
         if(theme.equals(siteThemes.lightMode)) {
             lightModeDropdownOption.click();

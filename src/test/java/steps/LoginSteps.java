@@ -2,9 +2,6 @@ package steps;
 import io.cucumber.java.en.*;
 import context.TestContext;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.LoginPage;
 import pages.shared.NavigationBar;
 
@@ -35,7 +32,7 @@ public class LoginSteps {
     @Given("I logout")
     public void i_logout() {
 
-        navigationBar.clickProfileDropdown();
+        navigationBar.hoverProfileDropdown();
         navigationBar.clickLoginOut();
     }
 

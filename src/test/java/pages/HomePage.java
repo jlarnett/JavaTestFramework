@@ -33,7 +33,7 @@ public class HomePage {
     @FindBy(className = "post-container")
     private List<WebElement> posts;
 
-    @FindBy(css = ".note-editable")
+    @FindBy(css = "#MainPostTextboxContainer .note-editable")
     private WebElement mainPostInput;
 
     @FindBy(id = "SubmitBtn")
@@ -235,7 +235,7 @@ public class HomePage {
 
     public void clickFirstTagItem() {
         //Try to wait for tag item dropdown to appear
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(hintGroup));
 
         //Setup actions

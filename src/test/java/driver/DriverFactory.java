@@ -13,8 +13,6 @@ public class DriverFactory {
     static {
         System.out.println("Running global WebDriverManager setup...");
         WebDriverManager.edgedriver()
-                .browserVersion("match")
-                .avoidBrowserDetection()
                 .setup();
     }
 
