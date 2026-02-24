@@ -32,8 +32,6 @@ public class DriverFactory {
 
         //Try to force maximize
         edgeDriver.manage().window().setSize(new Dimension(1920, 1080));
-        edgeDriver.manage().window().maximize();
-
         return edgeDriver;
     });
 

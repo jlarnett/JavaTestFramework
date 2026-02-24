@@ -98,12 +98,19 @@ public class HomePage {
     public void likeFirstPost() {
         var firstPost = posts.getFirst();
         var firstPostLikeButton = firstPost.findElement(By.cssSelector(".post-like"));
+
+        //Try to move to element first
+        var action =  new Actions(driver);
+        action.moveToElement(firstPostLikeButton).perform();
         firstPostLikeButton.click();
     }
 
     public void dislikeFirstPost() {
         var firstPost = posts.getFirst();
         var firstPostDislikeButton = firstPost.findElement(By.cssSelector(".post-dislike"));
+
+        var action =  new Actions(driver);
+        action.moveToElement(firstPostDislikeButton).perform();
         firstPostDislikeButton.click();
     }
 
