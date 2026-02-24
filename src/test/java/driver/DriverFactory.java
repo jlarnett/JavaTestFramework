@@ -12,7 +12,7 @@ public class DriverFactory {
     private static final Semaphore semaphore = new Semaphore(5); // 5 browsers max
     static {
         System.out.println("Running global WebDriverManager setup...");
-        WebDriverManager.edgedriver()
+        WebDriverManager.edgeDriver()
                 .setup();
     }
 
