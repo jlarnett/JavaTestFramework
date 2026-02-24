@@ -12,7 +12,7 @@ public class DriverFactory {
     private static final Semaphore semaphore = new Semaphore(5); // 5 browsers max
     static {
         System.out.println("Running global WebDriverManager setup...");
-        WebDriverManager.edgeDriver()
+        WebDriverManager.edgedriver()
                 .setup();
     }
 
@@ -32,6 +32,7 @@ public class DriverFactory {
 
         //Try to force maximize
         edgeDriver.manage().window().setSize(new Dimension(1920, 1080));
+        edgeDriver.manage().window().maximize();
         return edgeDriver;
     });
 
