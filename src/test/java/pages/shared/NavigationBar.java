@@ -164,6 +164,8 @@ public class NavigationBar {
      * Validates that the profile picture element is visible in navbar
      */
     public void checkForProfilePicture(boolean shouldBeVisible) {
+        System.out.println("Window size: " + driver.manage().window().getSize());
+        System.out.println("Current URL: " + driver.getCurrentUrl());
         if(shouldBeVisible) {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.visibilityOf(profilePicture));
