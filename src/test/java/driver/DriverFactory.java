@@ -27,7 +27,6 @@ public class DriverFactory {
         options.addArguments("--headless=new");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
-        options.addArguments("--no-sandbox");
         var edgeDriver = new EdgeDriver(options);
 
         //Try to force maximize
