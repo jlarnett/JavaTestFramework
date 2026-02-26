@@ -24,15 +24,15 @@ public class DriverFactory {
         }
 
         EdgeOptions options = new EdgeOptions();
-        options.addArguments("--disable-gpu");
+        options.addArguments("--headless=new");
         options.addArguments("--window-size=1920,1080");
+        options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
-
         var edgeDriver = new EdgeDriver(options);
 
         //Try to force maximize
-        edgeDriver.manage().window().setSize(new Dimension(1920, 1080));
-        edgeDriver.manage().window().maximize();
+        //edgeDriver.manage().window().setSize(new Dimension(1920, 1080));
+        //edgeDriver.manage().window().maximize();
         return edgeDriver;
     });
 
