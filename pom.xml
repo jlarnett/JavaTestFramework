@@ -43,7 +43,7 @@
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v148</artifactId>
+            <artifactId>selenium-devtools-v147</artifactId>
             <version>4.38.0</version>
         </dependency>
 
