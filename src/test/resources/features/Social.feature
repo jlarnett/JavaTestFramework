@@ -32,12 +32,12 @@ Feature: Social Feed
   Scenario: Clicking like button while not logged in shows validation message
     Given I try to like first post
     Then I should see first post error message is shown "true"
-    Then I should see first post error message text is "Login required to like social media posts & comments"
+    Then I should see first post error message text is "Please Login to interact with posts & comments"
 
   Scenario: Clicking dislike button while not logged in shows validation message
     Given I try to dislike first post
     Then I should see first post error message is shown "true"
-    Then I should see first post error message text is "Login required to dislike social media posts & comments"
+    Then I should see first post error message text is "Please Login to interact with posts & comments"
 
   Scenario: Submit post with valid summary and like post
     Given I navigate to login page

@@ -1,6 +1,7 @@
 package driver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -9,7 +10,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import java.util.concurrent.Semaphore;
 
 public class DriverFactory {
-    private static final Semaphore semaphore = new Semaphore(4); // 5 browsers max
+    private static final Semaphore semaphore = new Semaphore(Integer.parseInt(Dotenv.load().get("WORKERS")));
     static {
         System.out.println("Running global WebDriverManager setup...");
         WebDriverManager.edgedriver()
@@ -24,7 +25,7 @@ public class DriverFactory {
         }
 
         EdgeOptions options = new EdgeOptions();
-        options.addArguments("--headless=new");
+        //options.addArguments("--headless=new");
         options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
         var edgeDriver = new EdgeDriver(options);
