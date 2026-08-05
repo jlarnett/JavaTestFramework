@@ -1,14 +1,9 @@
 package pages;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import entity_contracts.ApiResponse;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v142.network.Network;
-import org.openqa.selenium.devtools.v142.network.model.RequestId;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -17,15 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 public class HomePage {
-    private DevTools devTools;
     private final WebDriver driver;
-
-    private static final ObjectMapper mapper = new ObjectMapper();
 
     @FindBy(id = "ContentFeed")
     private WebElement contentFeed;
@@ -59,14 +48,6 @@ public class HomePage {
 
 
     public HomePage(WebDriver driver) {
-
-        // initialize DevTools directly
-        if (driver instanceof org.openqa.selenium.edge.EdgeDriver edgeDriver) {
-            devTools = edgeDriver.getDevTools();
-            devTools.createSession();
-            devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()));
-        }
-
         // initializes @FindBy elements
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -207,33 +188,29 @@ public class HomePage {
         }
     }
 
-    /**
-     * Tries to submit the basic post and capture API Response.
-     * @param urlFragment - the api url to look for
-     * @param timeoutSeconds - how long before the response capturing times out
-     * @return - ApiResponse object containing JSON of Post
-     * @throws Exception - can throw exceptions if network response times out
-     */
-    public ApiResponse clickBasicPostSubmitBtnAndGetResponseBody(String urlFragment, int timeoutSeconds) throws Exception {
-        final String[] responseBodyHolder = new String[1];
-        CountDownLatch latch = new CountDownLatch(1);
+    public Integer clickBasicPostSubmitBtnAndGetCreatedPostId(int timeoutSeconds) {
+        String previousTopPostId = null;
+        By firstPostSelector = By.cssSelector(".post-container:first-of-type");
 
-        devTools.addListener(Network.responseReceived(), event -> {
-            if (event.getResponse().getUrl().contains(urlFragment)) {
-                RequestId requestId = event.getRequestId(); // <-- requestId comes from the event
-                // get the response body
-                responseBodyHolder[0] = devTools.send(Network.getResponseBody(requestId)).getBody();
-                latch.countDown();
-            }
-        });
+        if (!posts.isEmpty()) {
+            previousTopPostId = posts.getFirst().getAttribute("post-id");
+        }
 
-        // Trigger the request
         basicPostSubmitBtn.click();
 
-        // Wait for the response
-        latch.await(timeoutSeconds, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+        String finalPreviousTopPostId = previousTopPostId;
+        wait.until(d -> {
+            WebElement firstPost = d.findElement(firstPostSelector);
+            String currentTopPostId = firstPost.getAttribute("post-id");
+            if (currentTopPostId == null || currentTopPostId.isBlank()) {
+                return false;
+            }
+            return finalPreviousTopPostId == null || !currentTopPostId.equals(finalPreviousTopPostId);
+        });
 
-        return mapper.readValue(responseBodyHolder[0], ApiResponse.class);
+        String createdPostId = driver.findElement(firstPostSelector).getAttribute("post-id");
+        return Integer.parseInt(createdPostId);
     }
 
     public void clickTagItemByText(String text) {

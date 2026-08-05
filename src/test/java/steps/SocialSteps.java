@@ -49,10 +49,10 @@ public class SocialSteps {
     }
 
     @Given("I try to submit basic post and store network response")
-    public void i_try_to_submit_basic_post_and_store_network_response() throws Exception {
+    public void i_try_to_submit_basic_post_and_store_network_response() {
         var HomePage = new HomePage(context.getDriver());
-        var response = HomePage.clickBasicPostSubmitBtnAndGetResponseBody("/api/Posts/BasicPost", 10);
-        postIds.push(response.post.id);
+        var postId = HomePage.clickBasicPostSubmitBtnAndGetCreatedPostId(10);
+        postIds.push(postId);
     }
     
     @Given("I click on upload with photos button")
