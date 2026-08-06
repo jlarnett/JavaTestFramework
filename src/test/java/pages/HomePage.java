@@ -60,7 +60,8 @@ public class HomePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(mainPostInput));
         mainPostInput.click();
-        mainPostInput.sendKeys(text);
+        // Use Actions to properly fire keyboard events — required for Summernote hint/mention detection
+        new Actions(driver).sendKeys(mainPostInput, text).perform();
     }
 
     /**
