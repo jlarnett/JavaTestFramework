@@ -127,16 +127,14 @@ public class NavigationBar {
 
     public void setSearchInput(String text) {
         searchInput.sendKeys(text);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
     }
 
     public void selectFirstSearchResult() {
-        var results = searchDropdown.findElements(By.cssSelector("li"));
-
-        if(!results.isEmpty()) {
-            results.getFirst().click();
-        }
-
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        List<WebElement> results = wait.until(
+                ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("#searchDropdown li"), 0)
+        );
+        results.getFirst().click();
     }
 
     public enum siteThemes {

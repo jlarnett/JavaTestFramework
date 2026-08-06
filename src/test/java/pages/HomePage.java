@@ -1,7 +1,6 @@
 package pages;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -58,6 +57,8 @@ public class HomePage {
      * @param text - the text to fill the post summary with
      */
     public void setMainPostInput(String text) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(mainPostInput));
         mainPostInput.click();
         mainPostInput.sendKeys(text);
     }
@@ -66,32 +67,32 @@ public class HomePage {
      * Clicks on the basic post submission button. Tries to submit whatever text located in mainPostInput
      */
     public void clickBasicPostSubmitBtn() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(basicPostSubmitBtn));
         basicPostSubmitBtn.click();
     }
 
-    /**
-     * Clicks on the upload with photos button. Will open the personalized post modal
-     */
     public void clickUploadWithPhotosBtn() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(uploadWithPhotosBtn));
         uploadWithPhotosBtn.click();
     }
 
     public void likeFirstPost() {
-        var firstPost = posts.getFirst();
-        var firstPostLikeButton = firstPost.findElement(By.cssSelector(".post-like"));
-
-        //Try to move to element first
-        var action =  new Actions(driver);
-        action.moveToElement(firstPostLikeButton).perform();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement firstPostLikeButton = wait.until(
+                ExpectedConditions.elementToBeClickable(By.cssSelector(".post-container:first-of-type .post-like"))
+        );
+        new Actions(driver).moveToElement(firstPostLikeButton).perform();
         firstPostLikeButton.click();
     }
 
     public void dislikeFirstPost() {
-        var firstPost = posts.getFirst();
-        var firstPostDislikeButton = firstPost.findElement(By.cssSelector(".post-dislike"));
-
-        var action =  new Actions(driver);
-        action.moveToElement(firstPostDislikeButton).perform();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement firstPostDislikeButton = wait.until(
+                ExpectedConditions.elementToBeClickable(By.cssSelector(".post-container:first-of-type .post-dislike"))
+        );
+        new Actions(driver).moveToElement(firstPostDislikeButton).perform();
         firstPostDislikeButton.click();
     }
 
@@ -218,14 +219,13 @@ public class HomePage {
     }
 
     public void clickFirstTagItem() {
-        //Try to wait for tag item dropdown to appear
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(hintGroup));
 
-        //Setup actions
-        Actions actions = new Actions(driver);
-
-        // Press multiple keys
-        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+        // Wait for the first hint item to be clickable and click it directly — more reliable than keyboard navigation
+        WebElement firstHintItem = wait.until(
+                ExpectedConditions.elementToBeClickable(By.cssSelector(".note-hint-item"))
+        );
+        firstHintItem.click();
     }
 }
