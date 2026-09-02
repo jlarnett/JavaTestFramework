@@ -1,7 +1,7 @@
 Feature: Login Feature
 
   Scenario: Home Page - Title Check
-    Then I should see the title "Anime Social - Feed"
+    Then I should see the title "Anime Social · Feed"
 
   Scenario: Successful Login
     And I navigate to login page
