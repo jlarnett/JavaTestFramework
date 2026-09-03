@@ -32,7 +32,7 @@ public class Hooks {
         WebDriver driver = DriverFactory.getDriver();
         driver.get(baseUrl);
 
-        System.out.println("Starting scenario: " + scenario.getName());
+        System.out.println("sStarting scenario: " + scenario.getName());
     }
 
     @After
