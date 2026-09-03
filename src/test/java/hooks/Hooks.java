@@ -27,12 +27,6 @@ public class Hooks {
         seleniumRootLogger.setLevel(Level.SEVERE);
     }
 
-    @BeforeAll
-    public void beforeAll() {
-        WebDriver driver = DriverFactory.getDriver();
-        driver.get(baseUrl);
-    }
-
     @Before
     public void setUp(io.cucumber.java.Scenario scenario) {
         WebDriver driver = DriverFactory.getDriver();
