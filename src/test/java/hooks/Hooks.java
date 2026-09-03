@@ -4,6 +4,7 @@ import context.TestContext;
 import driver.DriverFactory;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
+import io.cucumber.java.BeforeAll;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -18,12 +19,18 @@ public class Hooks {
 
     public Hooks(TestContext context) {
         this.context = context;
-        this.baseUrl = context.dotenv.get("BASE_URL");
+        this.baseUrl = context.dotenv.get("NHA_API_BASE_URL");
 
         Logger seleniumLogger = Logger.getLogger("org.openqa.selenium.devtools");
         seleniumLogger.setLevel(Level.SEVERE); // only errors
         Logger seleniumRootLogger = Logger.getLogger("org.openqa.selenium");
         seleniumRootLogger.setLevel(Level.SEVERE);
+    }
+
+    @BeforeAll
+    public void beforeAll() {
+        WebDriver driver = DriverFactory.getDriver();
+        driver.get(baseUrl);
     }
 
     @Before

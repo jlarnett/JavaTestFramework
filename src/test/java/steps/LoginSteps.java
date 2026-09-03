@@ -26,7 +26,8 @@ public class LoginSteps {
 
     @Given("I login with valid credentials")
     public void i_login_with_valid_credentials() {
-        loginPage.login(context.dotenv.get("APP_USERNAME"), context.dotenv.get("APP_PASSWORD"));
+        var testUser = context.getOrCreateTestUser();
+        loginPage.login(testUser.email, testUser.password);
     }
 
     @Given("I logout")
