@@ -27,12 +27,13 @@ public class DriverFactory {
         EdgeOptions options = new EdgeOptions();
         boolean headless = Boolean.parseBoolean(dotenv.get("HEADLESS", "true"));
         if (headless) {
-            options.addArguments("--headless");
+            options.addArguments("--headless=new");
         }
+
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--window-size=1920,1080");
         options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
 
         var edgeDriver = new EdgeDriver(options);
 
