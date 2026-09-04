@@ -14,6 +14,8 @@ import java.util.List;
 
 public class HomePage {
     private final WebDriver driver;
+    private static final By FEED_POSTS_SELECTOR = By.cssSelector("#ContentFeed .post-container");
+    private static final By POST_ERROR_MESSAGE_SELECTOR = By.cssSelector("[data-testid='post-error-message']");
 
     @FindBy(id = "ContentFeed")
     private WebElement contentFeed;
@@ -80,21 +82,21 @@ public class HomePage {
     }
 
     public void likeFirstPost() {
+        WebElement firstPost = getFirstVisiblePost(Duration.ofSeconds(10));
+        WebElement firstPostLikeButton = firstPost.findElement(By.cssSelector(".post-like[post-id]"));
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement firstPostLikeButton = wait.until(
-                ExpectedConditions.elementToBeClickable(By.cssSelector(".post-container:first-of-type .post-like"))
-        );
-        new Actions(driver).moveToElement(firstPostLikeButton).perform();
-        firstPostLikeButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(firstPostLikeButton));
+        new Actions(driver).moveToElement(firstPostLikeButton).click().perform();
     }
 
     public void dislikeFirstPost() {
+        WebElement firstPost = getFirstVisiblePost(Duration.ofSeconds(10));
+        WebElement firstPostDislikeButton = firstPost.findElement(By.cssSelector(".post-dislike[post-id]"));
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement firstPostDislikeButton = wait.until(
-                ExpectedConditions.elementToBeClickable(By.cssSelector(".post-container:first-of-type .post-dislike"))
-        );
-        new Actions(driver).moveToElement(firstPostDislikeButton).perform();
-        firstPostDislikeButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(firstPostDislikeButton));
+        new Actions(driver).moveToElement(firstPostDislikeButton).click().perform();
     }
 
     /**
@@ -118,14 +120,22 @@ public class HomePage {
      * @param shouldBeVisible - whether the error message is expected to be visible or not.
      */
     public void checkFirstPostErrorMessageVisibility(boolean shouldBeVisible) {
-        var firstPost = posts.getFirst();
-        var firstPostErrorMessage = firstPost.findElement(By.cssSelector("span[data-testid='post-error-message']"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-        if(shouldBeVisible) {
-            Assertions.assertTrue(firstPostErrorMessage.isDisplayed());
-        }
-        else {
-            Assertions.assertFalse(firstPostErrorMessage.isDisplayed());
+        if (shouldBeVisible) {
+            Boolean errorMessageVisible = wait.until(d -> {
+                WebElement firstPost = getFirstVisiblePost(Duration.ofSeconds(1));
+                List<WebElement> errorMessages = firstPost.findElements(POST_ERROR_MESSAGE_SELECTOR);
+                return !errorMessages.isEmpty() && errorMessages.getFirst().isDisplayed();
+            });
+            Assertions.assertTrue(Boolean.TRUE.equals(errorMessageVisible));
+        } else {
+            Boolean errorMessageHidden = wait.until(d -> {
+                WebElement firstPost = getFirstVisiblePost(Duration.ofSeconds(1));
+                List<WebElement> errorMessages = firstPost.findElements(POST_ERROR_MESSAGE_SELECTOR);
+                return errorMessages.isEmpty() || !errorMessages.getFirst().isDisplayed();
+            });
+            Assertions.assertTrue(Boolean.TRUE.equals(errorMessageHidden));
         }
     }
 
@@ -134,8 +144,16 @@ public class HomePage {
      * @param text - the test we expect to see in error message
      */
     public void checkFirstPostErrorMessageText(String text) {
-        var firstPost = posts.getFirst();
-        var firstPostErrorMessage = firstPost.findElement(By.cssSelector("span[data-testid='post-error-message']")).getText();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        String firstPostErrorMessage = wait.until(d -> {
+            WebElement firstPost = getFirstVisiblePost(Duration.ofSeconds(1));
+            List<WebElement> errorMessages = firstPost.findElements(POST_ERROR_MESSAGE_SELECTOR);
+            if (errorMessages.isEmpty()) {
+                return null;
+            }
+            String messageText = errorMessages.getFirst().getText();
+            return messageText == null || messageText.isBlank() ? null : messageText;
+        });
 
         Assertions.assertEquals(text, firstPostErrorMessage);
     }
@@ -228,5 +246,18 @@ public class HomePage {
                 ExpectedConditions.elementToBeClickable(By.cssSelector(".note-hint-item"))
         );
         firstHintItem.click();
+    }
+
+    private WebElement getFirstVisiblePost(Duration timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+        return wait.until(d -> {
+            List<WebElement> feedPosts = d.findElements(FEED_POSTS_SELECTOR);
+            for (WebElement post : feedPosts) {
+                if (post.isDisplayed()) {
+                    return post;
+                }
+            }
+            return null;
+        });
     }
 }

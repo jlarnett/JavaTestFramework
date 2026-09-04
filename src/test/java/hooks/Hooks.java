@@ -35,14 +35,14 @@ public class Hooks {
         WebDriver driver = DriverFactory.getDriver();
         driver.get(baseUrl);
 
-        System.out.println("Current URL: " + driver.getCurrentUrl());
-        System.out.println("Title: " + driver.getTitle());
-        System.out.println("Page source length: " + driver.getPageSource().length());
-        String source = driver.getPageSource();
-
-        System.out.println("Page source length: " + source.length());
-        System.out.println("Page source:");
-        System.out.println(source);
+        //Serious Debugging
+        //System.out.println("Current URL: " + driver.getCurrentUrl());
+        //System.out.println("Title: " + driver.getTitle());
+        //System.out.println("Page source length: " + driver.getPageSource().length());
+        //String source = driver.getPageSource();
+        //System.out.println("Page source length: " + source.length());
+        //System.out.println("Page source:");
+        //System.out.println(source);
 
         System.out.println("Starting scenario: " + scenario.getName());
     }
