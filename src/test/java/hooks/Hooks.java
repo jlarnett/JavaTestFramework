@@ -19,7 +19,10 @@ public class Hooks {
 
     public Hooks(TestContext context) {
         this.context = context;
-        this.baseUrl = context.dotenv.get("BASE_URL");
+        String configuredBaseUrl = context.dotenv.get("BASE_URL");
+        if (configuredBaseUrl != null && !configuredBaseUrl.isBlank()) {
+            this.baseUrl = configuredBaseUrl;
+        }
 
         Logger seleniumLogger = Logger.getLogger("org.openqa.selenium.devtools");
         seleniumLogger.setLevel(Level.SEVERE); // only errors

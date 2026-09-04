@@ -9,7 +9,8 @@ import org.openqa.selenium.edge.EdgeOptions;
 import java.util.concurrent.Semaphore;
 
 public class DriverFactory {
-    private static final Semaphore semaphore = new Semaphore(Integer.parseInt(Dotenv.load().get("WORKERS")));
+    private static final Dotenv dotenv = Dotenv.load();
+    private static final Semaphore semaphore = new Semaphore(Integer.parseInt(dotenv.get("WORKERS", "1")));
     static {
         System.out.println("Running global WebDriverManager setup...");
         WebDriverManager.edgedriver()
@@ -24,11 +25,13 @@ public class DriverFactory {
         }
 
         EdgeOptions options = new EdgeOptions();
-        options.addArguments("--headless=new");
+        boolean headless = Boolean.parseBoolean(dotenv.get("HEADLESS", "true"));
+        if (headless) {
+            options.addArguments("--headless");
+        }
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--window-size=1920,1080");
-        options.addArguments("--disable-gpu");
         var edgeDriver = new EdgeDriver(options);
 
         //Try to force maximize
