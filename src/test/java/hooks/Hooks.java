@@ -19,7 +19,7 @@ public class Hooks {
 
     public Hooks(TestContext context) {
         this.context = context;
-        this.baseUrl = context.dotenv.get("NHA_API_BASE_URL");
+        this.baseUrl = context.dotenv.get("BASE_URL");
 
         Logger seleniumLogger = Logger.getLogger("org.openqa.selenium.devtools");
         seleniumLogger.setLevel(Level.SEVERE); // only errors

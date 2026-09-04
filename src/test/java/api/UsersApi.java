@@ -21,7 +21,7 @@ public final class UsersApi {
         String seed = UUID.randomUUID().toString().replace("-", "");
         String uniquePart = seed.substring(0, 12);
         String email = "autotest+" + uniquePart + "@example.com";
-        String displayName = "autotest_" + uniquePart;
+        String displayName = "autotest_" + uniquePart.substring(0, 11);
         String endpoint = normalizeBaseUrl(baseUrl) + "/api/users/register";
 
         String requestBody = "{"

@@ -44,7 +44,7 @@ public class NavigationBar {
     @FindBy(id= "animeDropdown")
     private WebElement animeDropdown;
     
-    @FindBy(linkText = "HypeRoll")
+    @FindBy(linkText = "Trailer Roll")
     private WebElement animeRollLinkButton;
 
     @FindBy(linkText = "Wiki")
