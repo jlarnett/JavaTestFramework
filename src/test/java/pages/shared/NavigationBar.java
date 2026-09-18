@@ -63,10 +63,10 @@ public class NavigationBar {
     private WebElement cryptoLinkButton;
 
 
-    @FindBy(linkText = "Light Mode")
+    @FindBy(id = "navbar-theme-light")
     private WebElement lightModeDropdownOption;
 
-    @FindBy(linkText = "Dark Mode")
+    @FindBy(id = "navbar-theme-dark")
     private WebElement darkModeDropdownOption;
     
     public NavigationBar(WebDriver driver) {
